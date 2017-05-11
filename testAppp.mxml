@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   title="Searce Login"
+					   creationComplete="Readpreferences();">
+	<fx:Declarations>
+		<mx:StringValidator source="{txtUser}" property="text" 
+							tooShortError="Username or password field cannot be empty"  
+							minLength="0" maxLength="200"  
+							trigger="{BtnLogin}" triggerEvent="click" 
+							valid="Alert.show('Validation Succeeded!');"
+							invalid="DisplayMessage('Error','Enter valid username',false);"/>
+	</fx:Declarations>
+	<fx:Declarations>
+		<mx:StringValidator source="{txtPassword}" property="text" 
+							tooShortError="Username or password field cannot be empty"  
+							minLength="0" maxLength="200"  
+							trigger="{BtnLogin}" triggerEvent="click" 
+							valid="Alert.show('Validation Succeeded!');"
+							invalid="DisplayMessage('Error','Enter valid password',false);"/>
+	</fx:Declarations>
+	<s:VGroup left="10" right="10" top="10" bottom="10">
+			
+			<fx:Script>
+				<![CDATA[
+					include "sso.as";
+				]]>
+			</fx:Script>
+			
+			
+		
+			
+			<s:Image id="loader1" source="@Embed('logo.jpg')" width="100%" height="50%"/>
+			<!-- Define the ViewStack and the three child containers and have it
+			resize up to the size of the container for the buttons. -->
+			<mx:ViewStack id="FramContainer" selectedIndex="1" borderStyle="solid" width="100%" height="100%" creationPolicy="all" >
+				
+				<mx:VBox id="LoginFrame" borderStyle="solid" verticalAlign = "middle" horizontalAlign="center" percentWidth="100">
+					<s:Image id="loader2"  width="100%" height="50%"/>
+					<mx:Form indicatorGap ="2" paddingLeft ="30" paddingTop = "30" percentWidth="100">
+						<mx:FormItem label="Email:">
+							<mx:HBox borderStyle="solid" verticalAlign = "middle" horizontalAlign = "center" horizontalGap = "0" percentWidth="100">
+								<s:TextInput id="txtUser" width="150" />
+							</mx:HBox>
+						</mx:FormItem>
+						<mx:FormItem label="Password:">
+							<mx:HBox borderStyle="solid" horizontalAlign = "center" percentWidth="100" horizontalGap = "0">
+								<s:TextInput id="txtPassword" width="150"  displayAsPassword="true" />
+							</mx:HBox>
+						</mx:FormItem>
+						<mx:HBox horizontalAlign = "left" paddingTop = "5" percentWidth="100" paddingLeft = "70">
+							<s:Button id="BtnLogin" label="Login" click="Login();"/>
+							<s:Button id="Btncancel" label="Cancel" click="CloseApp();" />
+						</mx:HBox>
+						<mx:HBox paddingTop = "22" paddingLeft="160">
+							<s:Image source="@Embed(source='logo_new.png')" width="900%" height="1000%" />	
+						</mx:HBox>
+					</mx:Form>
+				</mx:VBox>
+				
+				<mx:Form id="ProgressBarFrame" verticalGap ="15" percentWidth="100" percentHeight="100" visible="false" >
+					<mx:FormItemLabel id="_gControl_FormItemLabel1" textAlign = "center" percentWidth="100" styleName="LabelBold"/>
+					<mx:ProgressBar id="ProgressBarObject" percentWidth="100" indeterminate="true" height="1" />
+					<mx:VBox id="ErrorMessagePanel" percentWidth="100" >
+						<mx:Text id="_gControl_Text1" textAlign = "center" styleName="LabelError" percentWidth="100"/>
+					</mx:VBox>
+					<mx:HBox horizontalAlign = "center" paddingTop = "5" percentWidth="100">
+						<s:Button id="BtnOk" label="Ok" click="BtnOk_click();"  />
+						<s:Button id="_gControl_Button4" label="Cancel" click="CloseApp();" />
+					</mx:HBox >
+					<mx:HBox  paddingTop = "40" paddingLeft="180">
+						<s:Image source="@Embed(source='logo_new.png')" width="900%" height="1000%" />	
+					</mx:HBox >
+				</mx:Form>
+				
+				<mx:Form id="RegisterFrame" percentWidth="100" visible="false">
+					<mx:VBox  horizontalAlign = "left" verticalGap = "2" percentWidth="100">
+						<mx:Text id="_gControl_Text2" paddingLeft ="0" styleName="LabelBold" percentWidth="100"/>
+						<mx:FormItemLabel paddingLeft ="0" text="Request details :"/>
+						<s:TextArea id="txtRegisterReason" width="275" height="40" />
+					</mx:VBox>
+					<mx:HBox horizontalAlign = "right" width="275" paddingTop="5" percentWidth="100" paddingRight = "5" >
+						<s:Button id="BtnRegister" label="Register" click="onlyRegister();"/>
+						<s:Button id="BtnSkip" label="Skip" click="skipRegister();"  />
+						<s:Button id="Btncancel1" label="Cancel" click="CloseApp();" />
+					</mx:HBox>
+					<mx:HBox paddingTop = "47" paddingLeft="180">
+						<s:Image source="@Embed(source='logo_new.png')" width="900%" height="1000%" />	
+					</mx:HBox>
+					</mx:Form>
+			</mx:ViewStack>
+		</s:VGroup>
+
+
+	
+</s:WindowedApplication>
+
